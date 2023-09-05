@@ -7,4 +7,4 @@ while True:
         link = "https://boredhumans.com"+img
         bot.send_photo(chat_id="-1001737756503", photo=link)
     except Exception as e:
-        time.sleep(30) #every 2 mins #by:@Teamon404
+        time.sleep(10) #every 2 mins #by:@Teamon404
