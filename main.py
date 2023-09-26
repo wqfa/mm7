@@ -4,8 +4,7 @@ token = '6076102372:AAFZE6deQBGvHhC-UpohiNzG8WLh8UwVtPA'
 bot = telebot.TeleBot(token)
 @bot.message_handler(commands=['start'])
 def handle_start(message):
-    markup = telebot.types.InlineKeyboardMarkup()
-    markup.add(telebot.types.InlineKeyboardButton(text='Programer', url="https://t.me/DevEviI"))
+    markup = telebot.types.InlineKeyboardMarkup
     bot.reply_to(message,'''- Welcome To WallCraft Bot
 
 - This Bot Give You The Best WallPapers About Anything You Want
