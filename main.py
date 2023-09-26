@@ -1,10 +1,26 @@
-import telebot, time, requests
-bot = telebot.TeleBot("6435418706:AAHvQrdDhNZrcAG88MrpVBwcw8-kjSPrINQ")
-while True:
-    try:
-        response = requests.get('https://boredhumans.com/api_anime_images.php').text
-        img = response.split('<img src=')[1].split('"')[1]
-        link = "https://boredhumans.com"+img
-        bot.send_photo(chat_id="-1001737756503", photo=link)
-    except Exception as e:
-        time.sleep(10) #every 2 mins #by:@Teamon404
+import telebot
+import requests
+token = '6435418706:AAHvQrdDhNZrcAG88MrpVBwcw8-kjSPrINQ'
+bot = telebot.TeleBot(token)
+@bot.message_handler(commands=['start'])
+def handle_start(message):
+    markup = telebot.types.InlineKeyboardMarkup()
+    markup.add(telebot.types.InlineKeyboardButton(text='Programer', url="https://t.me/DevEviI"))
+    bot.reply_to(message,'''- Welcome To WallCraft Bot
+
+- This Bot Give You The Best WallPapers About Anything You Want
+
+- Programer : @DevEviI
+
+- Send Word To Search''',reply_markup=markup)
+@bot.message_handler(func=lambda message: True)
+def handle_image_request(message):
+    word = message.text
+    amnt = 10
+    res = requests.get(f'https://api-uc.wallpaperscraft.com/images?screen[width]\u003d720\u0026screen[height]\u003d1440\u0026lang\u003den\u0026limit\u003d{amnt}\u0026types[]\u003dfree\u0026types[]\u003dprivate\u0026offset\u003d60\u0026query\u003d{word}\u0026cost_variant\u003dandroid_cost_1\u0026sort\u003drating\u0026uploader_types[]\u003dwlc\u0026uploader_types[]\u003duser\u0026uploader_types[]\u003dwlc_ai_art').json()['items']
+    for i, item in enumerate(res):
+        url = item['variations']['adapted']['url']
+        markup = telebot.types.InlineKeyboardMarkup()
+        markup.add(telebot.types.InlineKeyboardButton(text='Programer', url="https://t.me/DevEviI"))
+        bot.send_photo(message.chat.id, photo=url,reply_markup=markup)
+bot.polling()
